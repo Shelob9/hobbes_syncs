@@ -1,0 +1,21 @@
+{
+    "name": "shelob9/hobbes-syncs",
+    "description": "Syncs content in a custom post type between sites.",
+    "type": "wordpress-plugin",
+    "keywords": [
+        "wordpress", "wp-api", "rest-api", "custom-post-types"
+    ],
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "Josh Pollock",
+            "homepage": "http://JoshPress.net",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "composer/installers": "~1.0.0",
+        "php": ">=5.3.0",
+        "webdevstudios/wds-wp-json-api-connect": "dev-master"
+    }
+}
