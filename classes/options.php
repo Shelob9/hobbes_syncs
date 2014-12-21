@@ -46,7 +46,7 @@ class Hobbes_Syncs_Options {
 	 *
 	 * @return null|array Returns the options or null if none are set
 	 */
-	public static function get_all (  ) {
+	public static function get_all () {
 		return self::get_options( null );
 
 	}
@@ -82,4 +82,26 @@ class Hobbes_Syncs_Options {
 
 	}
 
+	/**
+	 * Get a "node"--a field stored as an array, or one key from said array
+	 *
+	 * @param string $node The node to get
+	 * @param bool|string $key Optional. The specific key of array to get. If false, the default, full array is returned.
+	 *
+	 * @return array|null|string The value, or null if it couldn't be found.
+	 */
+	public static function get_node( $node, $key = false ) {
+		$value = self::get( $node );
+		if ( $key && isset( $value[ $key ] ) ) {
+			$value = $value[ $key ];
+		}elseif ( $key && ! isset( $value[ $key ] ) ) {
+			return null;
+
+		}
+
+		return $value;
+
+	}
+
 }
+

@@ -44,6 +44,7 @@ class Settings_Hobbes_Syncs extends Hobbes_Syncs{
 			}
 		}
 
+
 		// nope
 		wp_send_json_error( $config );
 
@@ -58,18 +59,12 @@ class Settings_Hobbes_Syncs extends Hobbes_Syncs{
 	 */
 	protected function add_sanitization_and_validation( $config ) {
 		foreach( $config as $setting => $value ) {
-			if ( is_array( $value) ) {
-				foreach( $value as $node  ) {
-					foreach( $node as $setting => $value ) {
-						$setting = $this->apply_sanitization_and_validation( $setting, $value, $config );
-						$config[ $node ][ $setting ] = $value;
-					}
-				}
-
-			}else {
-				$setting = $this->apply_sanitization_and_validation( $setting, $value, $config );
-				$config[ $setting ] = $value;
+			if ( ! in_array( $setting, $this->internal_config_fields() ) ) {
+				include_once( dirname( __FILE__ ) . '/sanatize.php' );
+				$filtered = Settings_Hobbes_Syncs_Sanitize::apply_sanitization_and_validation( $setting, $value, $config );
+				$config = $filtered;
 			}
+
 		}
 
 		return $config;
@@ -77,20 +72,13 @@ class Settings_Hobbes_Syncs extends Hobbes_Syncs{
 	}
 
 	/**
-	 * Applies the sanization and/ or validation filter
+	 * Array of "internal" fields not to mess with
 	 *
-	 * @param string $setting The name of the setting being saved.
-	 * @param mixed $value The value being saved
-	 * @param array $config Data being saved
+	 * @return array
 	 */
-	protected function apply_sanitization_and_validation( $setting, $value, $config ) {
-		if ( Hobbes_Syncs_Options::get( $setting ) != $value ) {
-			return apply_filters( "Hobbes_Syncs_{$setting}", $value );
-		}
-
-		return $setting;
+	protected function internal_config_fields() {
+		return array( 'hobbes-syncs-setup', '_wp_http_referer', 'id', '_current_tab' );
 	}
-
 
 	
 
