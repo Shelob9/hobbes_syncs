@@ -49,11 +49,29 @@ class Hobbes_Syncs {
 	}
 
 	public function make_it_so( $id ) {
+		$this->fake_auto_load_hsync();
+
+		$class = new \hsync\remote_post( $id );
+		add_action( 'all_admin_notices', array( $class, 'run') );
+	}
+
+
+	public function fake_auto_load_hsync() {
+
+		$path = dirname( __FILE__ ) . '/hsync/src/';
+		foreach( array( 'is_post_to_sync', 'remote_post' ) as $file ) {
+			$file = $path . $file;
+			include( $file .'.php' );
+
+		}
 
 	}
 
-	public function is_post_to_sync( $id ) {
-
+	public function auto_load_hsync() {
+		include_once( dirname( __FILE__ ) .'/classloader.php' );
+		$loader = new Psr4AutoloaderClass();
+		$loader->addNamespace( 'hysnc', untrailingslashit( dirname( __FILE__ ) . '/hysnc/src' ) );
+		$loader->register();
 	}
 
 
