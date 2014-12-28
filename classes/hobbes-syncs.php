@@ -46,32 +46,18 @@ class Hobbes_Syncs {
 		//do on save post
 		add_action( 'save_post', array( $this, 'make_it_so' ) );
 
+		//add sanitzation/validation filters
+		add_action( 'init', array( $this, 'filters' ) );
+
 	}
 
 	public function make_it_so( $id ) {
-		$this->fake_auto_load_hsync();
-
 		$class = new \hsync\remote_post( $id );
 		add_action( 'all_admin_notices', array( $class, 'run') );
 	}
 
-
-	public function fake_auto_load_hsync() {
-
-		$path = dirname( __FILE__ ) . '/hsync/src/';
-		foreach( array( 'is_post_to_sync', 'remote_post' ) as $file ) {
-			$file = $path . $file;
-			include( $file .'.php' );
-
-		}
-
-	}
-
-	public function auto_load_hsync() {
-		include_once( dirname( __FILE__ ) .'/classloader.php' );
-		$loader = new Psr4AutoloaderClass();
-		$loader->addNamespace( 'hysnc', untrailingslashit( dirname( __FILE__ ) . '/hysnc/src' ) );
-		$loader->register();
+	public function filters() {
+		new \jp_keyed_request\cye_save\filters();
 	}
 
 

@@ -18,7 +18,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path: /languages
  */
-return;
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -39,3 +39,36 @@ require_once( HSYNCC_PATH . 'includes/settings.php' );
 
 // Load instance
 add_action( 'plugins_loaded', array( 'Hobbes_Syncs', 'get_instance' ) );
+
+
+add_action( 'plugins_loaded',
+	function() {
+		$class_dir = HSYNCC_PATH.'classes';
+		include( $class_dir . '/jp_auto_loader/src/jp_auto_loader.php' );
+		$libraries = array(
+			'jp_keyed_request' => false,
+			'hsync' => false,
+			'jp_keyed_request_cye_save' => 'jp_keyed_request\cye_save'
+		);
+
+
+		$classLoader = new JP_Auto_Loader();
+		foreach ( $libraries as $lib => $namespace ) {
+			$root = $class_dir . '/'. $lib .'/src';
+
+			if ( ! $namespace ) {
+				$namespace = $lib;
+			}
+
+			$classLoader->addNamespace( $namespace, untrailingslashit( $root ) );
+			if ( file_exists( $root . '/functions.php' ) ) {
+				include( $root . '/functions.php' );
+			}
+
+		}
+
+		$classLoader->register();
+
+	}, 3
+
+);

@@ -21,14 +21,14 @@
 			<p class="description" style="margin-left: 190px;"> The URL for the remote site's json api</p>
 		</div>
 		<div class="hobbes-syncs-config-group">
-			<label for="hobbes-syncs-remote_sites-consumer_key-{{_id}}"><?php _e( 'Consumer Key', 'hobbes-syncs' ); ?></label>
-			<input id="hobbes-syncs-remote_sites-consumer_key-{{_id}}" type="text" class="regular-text" name="remote_sites[{{_id}}][consumer_key]" value="{{consumer_key}}" required="required">
-			<p class="description" style="margin-left: 190px;"> oAuth consumer key for remote site</p>
+			<label for="hobbes-syncs-remote_sites-remote-key{{_id}}"><?php _e( 'Remote Public Key', 'hobbes-syncs' ); ?></label>
+			<input id="hobbes-syncs-remote_sites-remote-key{{_id}}" type="text" class="regular-text" name="remote_sites[{{_id}}][public_key]" value="{{public_key}}" required="required">
+			<p class="description" style="margin-left: 190px;"> Remote Public Key</p>
 		</div>
 		<div class="hobbes-syncs-config-group">
-			<label for="hobbes-syncs-remote_sites-consumer_secret-{{_id}}"><?php _e( 'Consumer Secret', 'hobbes-syncs' ); ?></label>
-			<input id="hobbes-syncs-remote_sites-consumer_secret-{{_id}}" type="text" class="regular-text" name="remote_sites[{{_id}}][consumer_secret]" value="{{consumer_secret}}" required="required">
-			<p class="description" style="margin-left: 190px;"> oAuth consumer secret for remote site</p>
+			<label for="hobbes-syncs-remote_sites-remote-private{{_id}}"><?php _e( 'Remote Private Key', 'hobbes-syncs' ); ?></label>
+			<input id="hobbes-syncs-remote_sites-remote-private{{_id}}" type="text" class="regular-text" name="remote_sites[{{_id}}][private_key]" value="{{private_key}}" required="required">
+			<p class="description" style="margin-left: 190px;"> Remote Private Key</p>
 		</div>
 		</div>
 		<button type="button" class="button button-small" style="padding: 0px; margin: 3px 0px; position: absolute; left: 14px; top: 6px;" data-remove-parent=".node-wrapper"><span class="dashicons dashicons-no-alt" style="padding: 0px; margin: 0px; line-height: 23px;"></span></button>
