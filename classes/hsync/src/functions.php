@@ -21,7 +21,7 @@ add_filter( 'pods_json_api_pods_get_items_params', function( $params, $pod ) {
 	$prefix = pods_v_sanitized( 'x-search-prefix' );
 	$value = pods_v_sanitized( 'x-search-value' );
 	if ( $column && $prefix && $value ) {
-		$params[ 'where' ] = $prefix.'.'.$column.'='.$value;
+		$params[ 'where' ] = $prefix.'.'.$column.'="'.$value.'"';
 	}
 
 	return $params;
