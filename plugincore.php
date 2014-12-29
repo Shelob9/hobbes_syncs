@@ -78,10 +78,23 @@ add_action( 'plugins_loaded',
  */
 add_action( 'wp_ajax_hsync_generate_keys', 'hsync_generate_keys_ajax_cb' );
 function hsync_generate_keys_ajax_cb() {
-	if ( wp_verify_nonce( pods_v_sanitized( 'nonce' , 'post'),  'hobbes-syncs') ) {
+	if ( function_exists('pods_v_sanitized') && wp_verify_nonce( pods_v_sanitized( 'nonce' , 'post'),  'hobbes-syncs') ) {
 		\jp_keyed_request\auth\generate::generate_keys();
 		wp_send_json_success();
 	}
 
 }
 
+/**
+ * Deactivate plugin on load if dependencies do not check out
+ *
+ * @since 0.0.1
+ */
+add_action( 'plugins_loaded', 'hsyncs_check_dependencies', 1 );
+function hsyncs_check_dependencies() {
+
+	if ( ! defined( 'PODS_VERSION' ) || ! defined( 'PODS_JSON_API_VERSION' ) || ! function_exists( 'json_url' ) ) {
+		deactivate_plugins( plugin_basename( __FILE__ ) );
+		wp_redirect( admin_url() );
+	}
+}
