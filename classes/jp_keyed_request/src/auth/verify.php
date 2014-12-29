@@ -46,12 +46,18 @@ class verify extends keys {
 		$public  = self::get_request_key();
  		if ( $public && $token ) {
 
-			$private = pods_v( 'private', get::get_keys() );
+			$private = pods_v( 'private', get::get_keys( false ) );
 
 			if ( $private && generate::generate_token( $public, $private ) === $token ) {
 
 				return true;
 
+			}else{
+				pods_error( $public );
+				$p = get::get_keys();
+				$p= $p[ 'public' ];
+				pods_error( var_dump( array( 'gotPub'=> $public, 'pubSHOULDBE' => $p ) ));
+				pods_error( var_dump( array('keys' => get::get_keys() , 'pr' => $private, 'public' => $public, 'tokien' => $token, 'genToken' => generate::generate_token( $public, $private ) )) );
 			}
 
 		}
