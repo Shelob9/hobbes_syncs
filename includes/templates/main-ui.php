@@ -51,7 +51,8 @@
 		});
 	{{/script}}
 {{/unless}}
-
+<hr>
+<div class="clear"></div>
 <div id="hobbes-syncs-panel-local_keys" class="hobbes-syncs-editor-panel" >
 <h4><?php _e('This Site\s API Keys', 'hobbes-syncs') ; ?> <small class="description"><?php _e('Remote Sites', 'hobbes-syncs') ; ?></small></h4>
 <?php
@@ -59,3 +60,5 @@
 include HSYNCC_PATH . 'includes/templates/local_keys-panel.php';
 ?>
 </div>
+
+<div class="clear"></div>
