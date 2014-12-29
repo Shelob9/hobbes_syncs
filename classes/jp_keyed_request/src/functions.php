@@ -35,3 +35,5 @@ function jp_keyed_request_make( $url, $data, $method = 'POST' ) {
 }
 
 
+add_filter('pods_json_api_access_pods_save_item', '__return_true' );
+

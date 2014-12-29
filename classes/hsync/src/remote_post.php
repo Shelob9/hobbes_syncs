@@ -14,12 +14,12 @@ class remote_post {
 
 	protected  $can_send_class;
 	public     $post_id;
+	protected  $post_type;
 
 	function __construct( $post_id ) {
 		$this->post_id = $post_id;
 		$this->can_send_class = new is_post_to_sync( $post_id );
 		if ( $this->can_send_class->is_good ) {
-			include_once( HSYNCC_PATH . 'vendor/webdevstudios/wds-wp-json-api-connect/wds-wp-json-api-connect.php');
 			$this->run();
 		}
 
@@ -31,9 +31,8 @@ class remote_post {
 		}
 
 		$data = $this->get_post_json();
-
-		if ( is_wp_error( $data ) ) {
-			return $data;
+		if ( is_null( $data ) ) {
+			return;
 		}
 
 		$sites = $this->get_remote_sites();
@@ -57,69 +56,19 @@ class remote_post {
 	 */
 	protected function get_post_json() {
 		$id = $this->post_id;
-		$post = get_post( $id );
-		$post = (array) $post;
-		$convert_keys = array(
-			'title' => 'post_title',
-			'content' => 'post_content',
-			'slug' => 'post_name',
-			'status' => 'post_status',
-			'parent' => 'post_parent',
-			'excerpt' => 'post_excerpt',
-			'date' => 'post_date',
-			'type' => 'post_type',
-		);
-
-		foreach( $convert_keys as $api_wants => $post_has ) {
-			$value = $post[ $post_has ];
-			unset($post[ $post_has ] );
-			$post[ $api_wants ] = $value;
+		$post_type = get_post_type( $id );
+		$this->post_type = $post_type;
+		$pods = pods( $post_type, $id, true );
+		if ( is_object( $pods ) ) {
+			return wp_json_encode( $pods->export() );
 		}
-
-		$post = json_encode( $post );
-
-		return $post;
 
 	}
 
 	public function send( $site_info, $data ) {
-		$consumer = array(
-			'consumer_key'    => $site_info[ 'consumer_key'],
-			'consumer_secret' => $site_info[ 'consumer_secret' ],
-			'json_url'        => $site_info[ 'json_url' ],
-		);
-
-
-		$api = new \WDS_WP_JSON_API_Connect( $consumer );
-		$auth_url = $api->get_authorization_url();
-		die( $auth_url );
-		if ( $auth_url ) {
-			echo '<div id="message" class="updated">';
-			echo '<p><a href="'. esc_url( $auth_url ) .'" class="button">Authorize Connection</a></p>';
-			echo '</div>';
-
-			// Do not proceed
-			return;
-		}
-
-		$response = $api->auth_post_request( 'posts/'. $this->post_id, $data );
-
-		if ( is_wp_error( $response ) ) {
-
-			echo '<div id="message" class="error">';
-			echo wpautop( $response->get_error_message() );
-			echo '</div>';
-
-		} else {
-
-			echo '<div id="message" class="updated">';
-			echo '<p><strong>Post updated!</strong></p>';
-			echo '<xmp>auth_post_request $response: '. print_r( $response, true ) .'</xmp>';
-			echo '</div>';
-
-		}
-
-
+		$url = trailingslashit( $site_info[ 'json_url' ] ). $this->post_type .'/pods/'.$this->post_id;
+		$r =jp_keyed_request_make( $url, $data );
+		$v= 1;
 
 	}
 
