@@ -88,7 +88,7 @@ add_action( 'plugins_loaded',
 add_action( 'wp_ajax_hsync_generate_keys', 'hsync_generate_keys_ajax_cb' );
 function hsync_generate_keys_ajax_cb() {
 	if ( function_exists('pods_v_sanitized') && wp_verify_nonce( pods_v_sanitized( 'nonce' , 'post'),  'hobbes-syncs') ) {
-		\jp_keyed_request\auth\generate::generate_keys();
+		\jp_keyed_request\auth\generate::update_local_keys();
 		wp_send_json_success();
 	}
 

@@ -1,5 +1,5 @@
 <?php
-$keys = \jp_keyed_request\auth\get::get_keys( );
+$keys = \jp_keyed_request\auth\get::get_keys( false );
 $not_generated = __( 'Key has not been generated', 'hobbes-syncs' );
 ?>
 <div class="hsyncs-config-group">

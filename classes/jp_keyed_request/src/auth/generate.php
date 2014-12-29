@@ -45,6 +45,15 @@ class generate extends keys {
 	}
 
 	/**
+	 * Generate and save new local keys
+	 *
+	 * @since 0.0.1
+	 */
+	public static  function update_local_keys() {
+		self::save_local_keys( self::generate_public_key(), self::generate_private_key() );
+	}
+
+	/**
 	 * Clear stored local keys
 	 *
 	 * @since 0.4.0
