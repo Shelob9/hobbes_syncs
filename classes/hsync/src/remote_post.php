@@ -69,8 +69,9 @@ class remote_post {
 		$root_url = $site_info[ 'json_url' ];
 
 		if ( $root_url  ) {
-			$url = trailingslashit( $root_url ) . $this->post_type . '/pods';
+			$url = trailingslashit( $root_url ).'pods/' . $this->post_type;
 			$id = $this->find_id( $data, $root_url );
+
 			if ( $id ) {
 				$url = $url.'/'.$id;
 			}
@@ -78,7 +79,7 @@ class remote_post {
 		}
 
 		$r =jp_keyed_request_make( $url, $data );
-		$v= 1;
+		//pods_error( var_Dump( $r ) );
 
 	}
 
@@ -86,6 +87,7 @@ class remote_post {
 		$post_name = pods_v( 'post_name', $data );
 		if ( $post_name ) {
 			$id = find_remote_id::find( $root_url, $this->post_type, $post_name );
+
 			if ( intval( $id ) > 0 ) {
 				return $id;
 
