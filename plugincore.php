@@ -72,3 +72,16 @@ add_action( 'plugins_loaded',
 	}, 3
 
 );
+
+/**
+ * Process the generate local keys requests in admin.
+ */
+add_action( 'wp_ajax_hsync_generate_keys', 'hsync_generate_keys_ajax_cb' );
+function hsync_generate_keys_ajax_cb() {
+	if ( wp_verify_nonce( pods_v_sanitized( 'nonce' , 'post'),  'hobbes-syncs') ) {
+		\jp_keyed_request\auth\generate::generate_keys();
+		wp_send_json_success();
+	}
+
+}
+
