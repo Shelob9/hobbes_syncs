@@ -33,7 +33,7 @@ $not_generated = __( 'Key has not been generated', 'hobbes-syncs' );
 				action : "hsync_generate_keys",
 				nonce: "<?php echo $nonce; ?>"
 			};
-			alert( data );
+		
 			$.post(ajaxurl, data, function(response) {
 				location.reload();
 			});
