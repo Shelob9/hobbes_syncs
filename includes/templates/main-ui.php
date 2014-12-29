@@ -7,7 +7,7 @@
 					
 				<a class="{{#is _current_tab value="#hobbes-syncs-panel-post_types"}}current {{/is}}" href="#hobbes-syncs-panel-post_types"><?php _e('Post Types', 'hobbes-syncs') ; ?></a> <a style="color:#666">|</a>
 				<a class="{{#is _current_tab value="#hobbes-syncs-panel-remote_sites"}}current {{/is}}" href="#hobbes-syncs-panel-remote_sites"><?php _e('Remote Sites', 'hobbes-syncs') ; ?></a> <a style="color:#666">|</a>
-				<a class="{{#is _current_tab value="#hobbes-syncs-panel-local_keys"}}current {{/is}}" href="#hobbes-syncs-panel-local_keys"><?php _e('Local Keys', 'hobbes-syncs') ; ?></a> <a style="color:#666">|</a>
+
 		
 		</div>		
 		<div class="clear"></div>
@@ -34,13 +34,7 @@
 		include HSYNCC_PATH . 'includes/templates/remote_sites-panel.php';
 		?>
 	</div>
-	<div id="hobbes-syncs-panel-local_keys" class="hobbes-syncs-editor-panel" {{#is _current_tab value="#hobbes-syncs-panel-local_keys"}}{{else}} style="display:none;" {{/is}}>
-		<h4><?php _e('This Site\s API Keys', 'hobbes-syncs') ; ?> <small class="description"><?php _e('Remote Sites', 'hobbes-syncs') ; ?></small></h4>
-		<?php
-		// pull in the general settings template
-		include HSYNCC_PATH . 'includes/templates/local_keys-panel.php';
-		?>
-	</div>
+
 
 	
 	<div class="clear"></div>
@@ -57,3 +51,11 @@
 		});
 	{{/script}}
 {{/unless}}
+
+<div id="hobbes-syncs-panel-local_keys" class="hobbes-syncs-editor-panel" >
+<h4><?php _e('This Site\s API Keys', 'hobbes-syncs') ; ?> <small class="description"><?php _e('Remote Sites', 'hobbes-syncs') ; ?></small></h4>
+<?php
+// pull in the general settings template
+include HSYNCC_PATH . 'includes/templates/local_keys-panel.php';
+?>
+</div>
