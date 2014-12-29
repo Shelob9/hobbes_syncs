@@ -69,10 +69,10 @@ class remote_post {
 		$root_url = $site_info[ 'json_url' ];
 
 		if ( $root_url  ) {
-			$url = trailingslashit( $root_url ) . $this->post_type . '/pods/';
+			$url = trailingslashit( $root_url ) . $this->post_type . '/pods';
 			$id = $this->find_id( $data, $root_url );
 			if ( $id ) {
-				$url = $url.$id;
+				$url = $url.'/'.$id;
 			}
 
 		}
