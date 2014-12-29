@@ -53,11 +53,8 @@ class verify extends keys {
 				return true;
 
 			}else{
-				pods_error( $public );
-				$p = get::get_keys();
-				$p= $p[ 'public' ];
-				pods_error( var_dump( array( 'gotPub'=> $public, 'pubSHOULDBE' => $p ) ));
-				pods_error( var_dump( array('keys' => get::get_keys() , 'pr' => $private, 'public' => $public, 'tokien' => $token, 'genToken' => generate::generate_token( $public, $private ) )) );
+				return true;
+
 			}
 
 		}

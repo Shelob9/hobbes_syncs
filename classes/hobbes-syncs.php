@@ -44,15 +44,15 @@ class Hobbes_Syncs {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_stylescripts' ) );
 
 		//do on save post
-		add_action( 'save_post', array( $this, 'make_it_so' ) );
+		add_action( 'save_post', array( $this, 'make_it_so' ), 25, 2 );
 
 		//add sanitzation/validation filters
 		add_action( 'init', array( $this, 'filters' ) );
 
 	}
 
-	public function make_it_so( $id ) {
-		$class = new \hsync\remote_post( $id );
+	public function make_it_so( $id, $post ) {
+		$class = new \hsync\remote_post( $id, $post );
 		add_action( 'all_admin_notices', array( $class, 'run') );
 	}
 

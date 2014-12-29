@@ -28,7 +28,9 @@ class find_remote_id {
 			if ( is_string( $id ) ) {
 				return $id;
 			}else{
-				return $id[0];
+				reset( $id );
+				$key = key( $id );
+				return $id[ $key ];
 			}
 
 		}

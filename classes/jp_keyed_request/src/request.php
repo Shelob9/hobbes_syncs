@@ -69,7 +69,7 @@ class request {
 	function make() {
 
 		$body = $this->data;
-		$args = array(  'body' => $body, 'timeout' => 99999 );
+		$args = array(  'body' => $body, 'timeout' => 60 );
 		$r = wp_remote_post( $this->url, $args );
 		return $r;
 

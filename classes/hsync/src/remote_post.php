@@ -15,13 +15,16 @@ class remote_post {
 	protected  $can_send_class;
 	public     $post_id;
 	protected  $post_type;
+	protected   $post;
 
-	function __construct( $post_id ) {
+	function __construct( $post_id, $post ) {
 		$this->post_id = $post_id;
-		$this->can_send_class = new is_post_to_sync( $post_id );
+		$this->can_send_class = new is_post_to_sync( $post_id, $post );
 		if ( $this->can_send_class->is_good ) {
+			$this->post = $post;
 			$this->run();
 		}
+
 
 	}
 
@@ -42,6 +45,8 @@ class remote_post {
 			}
 
 		}
+
+		return $this->post_id;
 
 	}
 
@@ -76,10 +81,13 @@ class remote_post {
 				$url = $url.'/'.$id;
 			}
 
+
 		}
 
-		$r =jp_keyed_request_make( $url, $data );
-		//pods_error( var_Dump( $r ) );
+
+
+		$r = jp_keyed_request_make( $url, json_encode( $data  ) );
+		pods_error( var_Dump( $r ) );
 
 	}
 

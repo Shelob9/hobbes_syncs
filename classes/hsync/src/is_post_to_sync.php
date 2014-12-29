@@ -18,9 +18,12 @@ class is_post_to_sync {
 
 	public $is_good;
 
-	function __construct( $post_id ) {
+	function __construct( $post_id, $post = null ) {
 		$this->post_id = $post_id;
-		$post = get_post( $post_id, OBJECT );
+		if ( ! is_object( $post ) ) {
+			$post = get_post( $post_id, OBJECT );
+		}
+
 		if ( $post  ) {
 			$this->post = (object) $post;
 			$this->check_post_type();
