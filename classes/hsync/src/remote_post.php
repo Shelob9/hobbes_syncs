@@ -60,16 +60,37 @@ class remote_post {
 		$this->post_type = $post_type;
 		$pods = pods( $post_type, $id, true );
 		if ( is_object( $pods ) ) {
-			return wp_json_encode( $pods->export() );
+			return $pods->export();
 		}
 
 	}
 
 	public function send( $site_info, $data ) {
-		$url = trailingslashit( $site_info[ 'json_url' ] ). $this->post_type .'/pods/'.$this->post_id;
+		$root_url = $site_info[ 'json_url' ];
+
+		if ( $root_url  ) {
+			$url = trailingslashit( $root_url ) . $this->post_type . '/pods/';
+			$id = $this->find_id( $data, $root_url );
+			if ( $id ) {
+				$url = $url.$id;
+			}
+
+		}
+
 		$r =jp_keyed_request_make( $url, $data );
 		$v= 1;
 
+	}
+
+	public function find_id( $data, $root_url ) {
+		$post_name = pods_v( 'post_name', $data );
+		if ( $post_name ) {
+			$id = find_remote_id::find( $root_url, $this->post_type, $post_name );
+			if ( intval( $id ) > 0 ) {
+				return $id;
+
+			}
+		}
 	}
 
 

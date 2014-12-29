@@ -17,6 +17,13 @@ add_filter( 'pods_json_api_pods_get_items_params', function( $params, $pod ) {
 		$params[ 'where' ] = 't.ID="'.$id.'"';
 	}
 
+	$column = pods_v_sanitized( 'x-search-by' );
+	$prefix = pods_v_sanitized( 'x-search-prefix' );
+	$value = pods_v_sanitized( 'x-search-value' );
+	if ( $column && $prefix && $value ) {
+		$params[ 'where' ] = $prefix.'.'.$column.'='.$value;
+	}
+
 	return $params;
 
 }, 10, 2 );
