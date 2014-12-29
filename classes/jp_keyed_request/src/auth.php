@@ -22,8 +22,8 @@ class auth extends keys {
 	 */
 	public static function add_to_url( $key, $token, $url ) {
 		$args = array(
-			self::$request_key   => urlencode( $key ),
-			self::$request_token => urlencode( $token ),
+			self::$request_key   => $key,
+			self::$request_token => $token,
 		);
 
 		return add_query_arg( $args, $url );
@@ -58,15 +58,12 @@ class auth extends keys {
 	 *
 	 * @return array
 	 */
-	protected static function keys() {
+	public static function keys() {
 		$keys = get::get_keys();
 		$public = pods_v( 'public', $keys );
 		$private = pods_v( 'private', $keys );
 		if ( $public && $private ) {
 			return $keys;
-		}else{
-			generate::generate_keys();
-			return self::keys();
 		}
 
 	}
