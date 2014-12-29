@@ -18,6 +18,7 @@ add_action( 'init', function() {
 	$jp_keyed_request_auth = jp_keyed_request\auth\verify::allow_access();
 	if ( ! is_wp_error( $jp_keyed_request_auth) && $jp_keyed_request_auth ) {
 		add_filter('pods_json_api_access_pods_save_item', '__return_true' );
+		add_filter('pods_json_api_access_pods_add_item', '__return_true' );
 	}
 
 });
