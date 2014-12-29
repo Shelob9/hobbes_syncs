@@ -20,10 +20,16 @@ class find_remote_id {
 	public static function find( $root_url, $post_type, $post_name ) {
 		$url = self::build_url( $root_url, $post_type, $post_name  );
 		$response = wp_remote_get( $url );
+
 		if ( ! is_wp_error( $response ) ) {
 			$body = wp_remote_retrieve_body( $response );
-			$body = json_decode( $body );
-			return pods_v( $body[ 'ID' ] );
+			$body = (array)json_decode( $body );
+			$id = array_keys($body );
+			if ( is_string( $id ) ) {
+				return $id;
+			}else{
+				return $id[0];
+			}
 
 		}
 
