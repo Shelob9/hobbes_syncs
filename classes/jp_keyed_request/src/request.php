@@ -70,7 +70,7 @@ class request {
 
 		$body = $this->data;
 		$args = array(  'body' => $body, 'timeout' => 60 );
-		$r = wp_remote_post( $this->url, $args );
+		$r = wp_remote_post( $this->url, $args, $this->method );
 		return $r;
 
 	}
