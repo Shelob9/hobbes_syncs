@@ -92,8 +92,12 @@ function hsync_generate_keys_ajax_cb() {
  */
 add_action( 'plugins_loaded', 'hsyncs_check_dependencies', 1 );
 function hsyncs_check_dependencies() {
-
-	if ( ! defined( 'PODS_VERSION' ) || ! defined( 'PODS_JSON_API_VERSION' ) || ! function_exists( 'json_url' ) ) {
+	$version = false;
+	if ( version_compare(PHP_VERSION, '5.3.0') >= 0 ) {
+		$version = true;
+	}
+	
+	if ( ! $version || ! defined( 'PODS_VERSION' ) || ! defined( 'PODS_JSON_API_VERSION' ) || ! function_exists( 'json_url' ) ) {
 		deactivate_plugins( plugin_basename( __FILE__ ) );
 		wp_redirect( admin_url() );
 	}
