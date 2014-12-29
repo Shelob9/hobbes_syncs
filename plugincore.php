@@ -37,6 +37,15 @@ require_once( HSYNCC_PATH . '/classes/hobbes-syncs.php' );
 require_once( HSYNCC_PATH . '/classes/options.php' );
 require_once( HSYNCC_PATH . 'includes/settings.php' );
 
+/**
+ * Include the new and improve json functions in 4.1 if they do not exist
+ */
+add_action( 'init', function() {
+	if ( ! function_exists('wp_json_encode') ) {
+		require_once( HSYNCC_PATH . 'includes/compat.php' );
+	}
+});
+
 // Load instance
 add_action( 'plugins_loaded', array( 'Hobbes_Syncs', 'get_instance' ) );
 
