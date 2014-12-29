@@ -82,12 +82,12 @@ class remote_post {
 			}
 
 
+			$r = jp_keyed_request_make( $url, json_encode( $data  ) );
+
 		}
 
 
 
-		$r = jp_keyed_request_make( $url, json_encode( $data  ) );
-		pods_error( var_Dump( $r ) );
 
 	}
 
