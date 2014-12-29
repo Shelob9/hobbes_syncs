@@ -52,6 +52,7 @@ class Hobbes_Syncs {
 	}
 
 	public function make_it_so( $id, $post ) {
+		remove_action( 'save_post', array( $this, 'make_it_so' ), 25 );
 		$class = new \hsync\remote_post( $id, $post );
 		add_action( 'all_admin_notices', array( $class, 'run') );
 	}
