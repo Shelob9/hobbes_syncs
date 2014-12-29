@@ -1,8 +1,8 @@
 <?php
 /**
- * @TODO What this does.
+ * POSTs to remote
  *
- * @package   @TODO
+ * @package   @hsync
  * @author    Josh Pollock <Josh@JoshPress.net>
  * @license   GPL-2.0+
  * @link      
@@ -10,11 +10,52 @@
  */
 namespace hsync;
 
+/**
+ * Class remote_post
+ * @package hsync
+ */
 class remote_post {
 
+	/**
+	 * Check if can send class instance
+	 *
+	 * @access protected
+	 *
+	 * @since 0.0.1
+	 *
+	 * @var object|is_post_to_sync
+	 */
 	protected  $can_send_class;
+
+	/**
+	 * Post ID to POST
+	 *
+	 * @since 0.0.1
+	 *
+	 * @var int
+	 */
 	public     $post_id;
+
+	/**
+	 * Post type of post being synced
+	 *
+	 * @access protected
+	 *
+	 * @since 0.0.1
+	 *
+	 * @var string
+	 */
 	protected  $post_type;
+
+	/**
+	 * Post object
+	 *
+	 * @access protected
+	 *
+	 * @since 0.0.1
+	 *
+	 * @var object
+	 */
 	protected   $post;
 
 	function __construct( $post_id, $post ) {
@@ -28,6 +69,11 @@ class remote_post {
 
 	}
 
+	/**
+	 * Run the updates
+	 *
+	 * @since 0.0.1
+	 */
 	public function run() {
 		if ( ! $this->can_send_class->is_good ) {
 			return;
@@ -50,6 +96,15 @@ class remote_post {
 
 	}
 
+	/**
+	 * Check if we can send
+	 *
+	 * @since 0.0.1
+	 *
+	 * @access protected
+	 *
+	 * @return bool
+	 */
 	protected function can_send() {
 		$class = $this->can_send_class;
 		return $class->is_good;
@@ -57,6 +112,13 @@ class remote_post {
 	}
 
 	/**
+	 * Prepare post
+	 *
+	 * @since 0.0.1
+	 *
+	 * @access protected
+	 *
+	 *
 	 * @return object
 	 */
 	protected function get_post_json() {
@@ -70,6 +132,14 @@ class remote_post {
 
 	}
 
+	/**
+	 * Send to remote site
+	 *
+	 * @since 0.0.1
+	 *
+	 * @param array $site_info
+	 * @param object|array $data
+	 */
 	public function send( $site_info, $data ) {
 		$root_url = $site_info[ 'json_url' ];
 
@@ -87,10 +157,18 @@ class remote_post {
 		}
 
 
-
-
 	}
 
+	/**
+	 * Find ID of remote post
+	 *
+	 * @since 0.0.1
+	 *
+	 * @param array|object $data
+	 * @param string $root_url
+	 *
+	 * @return array
+	 */
 	public function find_id( $data, $root_url ) {
 		$post_name = pods_v( 'post_name', $data );
 		if ( $post_name ) {
@@ -104,7 +182,15 @@ class remote_post {
 	}
 
 
-
+	/**
+	 * Get remote sites to POST to
+	 *
+	 * @since 0.0.1
+	 *
+	 * @access protected
+	 *
+	 * @return array
+	 */
 	protected function get_remote_sites() {
 		$value = \Hobbes_Syncs_Options::get( 'remote_sites', array() );
 		$sites = array();
