@@ -15,10 +15,20 @@
  * @since 0.0.1
  */
 add_action( 'init', function() {
-	$jp_keyed_request_auth = jp_keyed_request\auth\verify::allow_access();
-	if ( ! is_wp_error( $jp_keyed_request_auth) && $jp_keyed_request_auth ) {
-		add_filter('pods_json_api_access_pods_save_item', '__return_true' );
-		add_filter('pods_json_api_access_pods_add_item', '__return_true' );
+	if ( ! is_null( pods_v_sanitized( \jp_keyed_request\auth\keys::$request_key ) ) ) {
+		$removed = remove_action( 'save_post', 'hsync_make_it_so', 25 );
+		if ( $removed ) {
+			$jp_keyed_request_auth = jp_keyed_request\auth\verify::allow_access();
+
+			if ( ! is_wp_error( $jp_keyed_request_auth ) && $jp_keyed_request_auth ) {
+				add_filter( 'pods_json_api_access_pods_save_item', '__return_true' );
+				add_filter( 'pods_json_api_access_pods_add_item', '__return_true' );
+			}
+
+		} else {
+			pods_error( __FILE__ );
+		}
+
 	}
 
 });

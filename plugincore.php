@@ -111,3 +111,16 @@ function hsyncs_check_dependencies() {
 		wp_redirect( admin_url() );
 	}
 }
+
+
+
+add_action( 'save_post', 'hsync_make_it_so', 25, 2);
+function hsync_make_it_so( $id, $post ) {
+	$removed = remove_action( 'save_post', 'hsync_make_it_so', 25 );
+	if ( $removed ) {
+		$class = new \hsync\remote_post( $id, $post );
+		add_action( 'all_admin_notices', array( $class, 'run' ) );
+	}else {
+		pods_error( __LINE__ );
+	}
+}

@@ -51,16 +51,10 @@ class Hobbes_Syncs {
 
 	}
 
-	public function make_it_so( $id, $post ) {
-		$removed = remove_action( 'save_post', array( $this, 'make_it_so' ), 25 );
-		if ( $removed ) {
-			$class = new \hsync\remote_post( $id, $post );
-			add_action( 'all_admin_notices', array( $class, 'run' ) );
-		}else {
-			pods_error( __LINE__ );
-		}
-	}
 
+	/**
+	 * Add sanitzation/validation filters
+	 */
 	public function filters() {
 		new \jp_keyed_request\cye_save\filters();
 	}
