@@ -151,7 +151,8 @@ class remote_post {
 				$url = $url.'/'.$id;
 			}
 
-
+			unset( $data[ 'id' ] );
+		
 			$r = jp_keyed_request_make( $url, json_encode( $data  ) );
 
 		}
