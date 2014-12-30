@@ -48,7 +48,7 @@ class verify extends keys {
 
 			$private = pods_v( 'private', get::get_keys( false ) );
 
-			if ( $private && generate::generate_token( $public, $private ) === $token ) {
+			if ( $private && self::check_token( $public, $private, $token ) ) {
 
 				return true;
 
@@ -91,6 +91,26 @@ class verify extends keys {
 		if ( ! is_null( $key = pods_v_sanitized( self::$request_key, 'get' ) ) ) {
 
 			return urldecode( $key );
+
+		}
+
+	}
+
+	/**
+	 * Check the token is what it should be.
+	 *
+	 * @since 0.0.1
+	 *
+	 * @param string $public
+	 * @param string $private
+	 * @param string $token
+	 *
+	 * @return bool
+	 */
+	private static function check_token( $public, $private, $token ) {
+		$should_be = generate::generate_token( $public, $private );
+		if ( $token === $should_be ) {
+			return true;
 
 		}
 
