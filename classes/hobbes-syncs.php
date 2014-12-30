@@ -43,9 +43,6 @@ class Hobbes_Syncs {
 		// Load admin style sheet and JavaScript.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_stylescripts' ) );
 
-		//do on save post
-		add_action( 'save_post', array( $this, 'make_it_so' ), 25, 2 );
-
 		//add sanitzation/validation filters
 		add_action( 'init', array( $this, 'filters' ) );
 
