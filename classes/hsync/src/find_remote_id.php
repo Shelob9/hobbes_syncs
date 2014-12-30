@@ -30,7 +30,10 @@ class find_remote_id {
 			}else{
 				reset( $id );
 				$key = key( $id );
-				return $id[ $key ];
+				if ( isset( $id[ $key ]) ) {
+					return $id[ $key ];
+
+				}
 			}
 
 		}
