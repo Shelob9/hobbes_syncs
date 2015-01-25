@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles saving, if auth is verified.
+ * Saves the auth keys from the UI after validation, if validation passes.
  *
  * @package   @jp_keyed_request\cye_save
  * @author    Josh Pollock <Josh@JoshPress.net>
