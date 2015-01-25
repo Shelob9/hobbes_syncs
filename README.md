@@ -2,7 +2,7 @@ Hobbes Syncs
 ===========
 This plugin syncs post content between in custom post types between two sites. It uses the WordPress REST API, and the Pods JSON API. In the future I'd like to make using Pods optional, but for now, it fits its intended purpose.
 
-<p style="display:inline-block;text-align:center;"><img src="https://raw.githubusercontent.com/Shelob9/hobbes_syncs/hobbes.png"  /></p>
+<p style="display:inline-block;text-align:center;"><img src="https://raw.githubusercontent.com/Shelob9/hobbes_syncs/master/hobbes.png" width="250" height="189" /></p><p style="display:block;text-align:center;">Hobbes!</p>
 
 
 ### Requirements
@@ -25,7 +25,7 @@ This plugin syncs post content between in custom post types between two sites. I
     * Click save.
     
 ### License, Copyright etc.
-Copyright 2014-2015 [Josh Pollock](http://JoshPress.net) & [Hobbes Jayourba-Pollock](https://raw.githubusercontent.com/Shelob9/hobbes_syncs/hobbes.png).
+Copyright 2014-2015 [Josh Pollock](http://JoshPress.net) & [Hobbes Jayourba-Pollock](https://raw.githubusercontent.com/Shelob9/hobbes_syncs/master/hobbes.png).
 
 Licensed under the terms of the [GNU General Public License version 2](http://www.gnu.org/licenses/gpl-2.0.html) or later. Please share with your neighbor.
     
