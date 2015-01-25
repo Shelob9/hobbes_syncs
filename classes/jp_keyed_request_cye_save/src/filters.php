@@ -1,8 +1,8 @@
 <?php
 /**
- * @TODO What this does.
+ * Handles saving, if auth is verified.
  *
- * @package   @TODO
+ * @package   @jp_keyed_request\cye_save
  * @author    Josh Pollock <Josh@JoshPress.net>
  * @license   GPL-2.0+
  * @link      
@@ -13,13 +13,15 @@ namespace jp_keyed_request\cye_save;
 
 use jp_keyed_request\auth\keys;
 
-
+/**
+ * Class filters
+ *
+ * @package jp_keyed_request\cye_save
+ */
 class filters extends keys {
 	function __construct() {
-
-		//add_filter( 'hobbes_syncs_remote_sites_public_key', array( $this, 'remote_public' ) );
-		//add_filter( 'hobbes_syncs_remote_sites_private_key', array( $this, 'remote_private' ) );
 		add_filter( 'hobbes_syncs_remote_sites', array( $this, 'verify' ) );
+
 	}
 
 	/**
@@ -77,11 +79,6 @@ class filters extends keys {
 		}
 
 	}
-
-
-
-
-
 
 }
 
