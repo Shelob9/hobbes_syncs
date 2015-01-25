@@ -15,7 +15,7 @@
  * @since 0.0.1
  */
 add_action( 'init', function() {
-	if ( ! is_null( pods_v_sanitized( \jp_keyed_request\auth\keys::$request_key ) ) ) {
+	if ( function_exists( 'pods_v_sanitized' ) && ! is_null( pods_v_sanitized( \jp_keyed_request\auth\keys::$request_key ) ) ) {
 		$removed = remove_action( 'save_post', 'hsync_make_it_so', 25 );
 		if ( $removed ) {
 			$jp_keyed_request_auth = jp_keyed_request\auth\verify::allow_access();
