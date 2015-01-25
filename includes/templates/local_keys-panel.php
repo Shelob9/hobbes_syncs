@@ -7,10 +7,10 @@ $not_generated = __( 'Key has not been generated', 'hobbes-syncs' );
 	<div style="margin-left: 180px; padding-top: 6px;" id="hsync-local-keys">
 
 		<div><span class="label"><?php _e( 'Public Key', 'syncs' ); ?> - </span>
-			<?php echo pods_v( 'private', $keys, $not_generated ); ?>
+			<?php echo pods_v( 'public', $keys, $not_generated ); ?>
 		</div>
 		<div><span class="label"><?php _e( 'Private Key', 'syncs' ); ?> - </span>
-			<?php echo pods_v( 'public', $keys, $not_generated ); ?>
+			<?php echo pods_v( 'private', $keys, $not_generated ); ?>
 		</div>
 	</div>
 	<div id="hsyncs-generate-keys">
@@ -18,7 +18,6 @@ $not_generated = __( 'Key has not been generated', 'hobbes-syncs' );
 	</div>
 </div>
 <?php
-	$admin_ajax = home_url( 'admin-ajax.php' );
 	$nonce = wp_create_nonce( 'hobbes-syncs' );
 ?>
 <script type="text/javascript">

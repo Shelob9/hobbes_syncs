@@ -28,7 +28,7 @@
 		?>
 	</div>
 	<div id="hobbes-syncs-panel-remote_sites" class="hobbes-syncs-editor-panel" {{#is _current_tab value="#hobbes-syncs-panel-remote_sites"}}{{else}} style="display:none;" {{/is}}>
-		<h4><?php _e('Set Sites To Sync To', 'hobbes-syncs') ; ?> <small class="description"><?php _e('Remote Sites', 'hobbes-syncs') ; ?></small></h4>
+		<h4><?php _e('Set Sites To Sync To', 'hobbes-syncs') ; ?> <small class="description"><?php _e( 'Enter these keys into a remote site\'s setting for this plugin.', 'hobbes-syncs') ; ?></small></h4>
 		<?php
 		// pull in the general settings template
 		include HSYNCC_PATH . 'includes/templates/remote_sites-panel.php';
@@ -54,7 +54,7 @@
 <hr>
 <div class="clear"></div>
 <div id="hobbes-syncs-panel-local_keys" class="hobbes-syncs-editor-panel" >
-<h4><?php _e('This Site\s API Keys', 'hobbes-syncs') ; ?> <small class="description"><?php _e('Remote Sites', 'hobbes-syncs') ; ?></small></h4>
+<h4><?php _e('This Site\'s API Keys', 'hobbes-syncs') ; ?> <small class="description"><?php _e('Remote Sites', 'hobbes-syncs') ; ?></small></h4>
 <?php
 // pull in the general settings template
 include HSYNCC_PATH . 'includes/templates/local_keys-panel.php';
