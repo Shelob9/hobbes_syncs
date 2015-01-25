@@ -17,6 +17,22 @@ $not_generated = __( 'Key has not been generated', 'hobbes-syncs' );
 		<a href="#" class="button-primary" id="hsync-generate-keys"><?php _e( 'Generate New Keys', 'hsync' ); ?></a>
 	</div>
 </div>
+<div class="hsyncs-config-group">
+	<div style="padding-top: 6px;" id="hsync-wp-json-url">
+		<span class="label"><?php _e( 'This Site\'s REST API URL', 'syncs' ); ?> - </span>
+		<?php
+		if (function_exists( 'json_url' ) ) {
+			echo esc_url( json_url() );
+		}else{
+			printf( 'This plugin requires the %1s, please install it now.',
+				sprintf( '<a href="%1s" target="_blank">WordPress REST API</a>', 'https://wordpress.org/plugins/json-rest-api/' )
+			);
+		}
+
+		?>
+	</div>
+</div>
+
 <?php
 	$nonce = wp_create_nonce( 'hobbes-syncs' );
 ?>
