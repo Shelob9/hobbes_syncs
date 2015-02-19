@@ -57,7 +57,8 @@ add_action( 'plugins_loaded',
 		$libraries = array(
 			'jp_keyed_request' => false,
 			'hsync' => false,
-			'jp_keyed_request_cye_save' => 'jp_keyed_request\cye_save'
+			'jp_keyed_request_cye_save' => 'jp_keyed_request\cye_save',
+			'hysnc' => 'hsync\featured_image',
 		);
 
 
