@@ -42,10 +42,12 @@ class is_post_to_sync {
 		}
 
 		$allowed = $this->active_post_types();
-		$allowed = array_flip( $allowed );
-		$post_type = $this->post->post_type;
-		if ( in_array( $post_type, $allowed ) ) {
-			$this->is_good = true;
+		if ( is_array( $allowed ) ) {
+			$allowed   = array_flip( $allowed );
+			$post_type = $this->post->post_type;
+			if ( in_array( $post_type, $allowed ) ) {
+				$this->is_good = true;
+			}
 		}
 
 	}
