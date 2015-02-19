@@ -25,6 +25,14 @@ add_action( 'init', function() {
 				add_filter( 'pods_json_api_access_pods_add_item', '__return_true' );
 			}
 
+			//run on post save the update featured
+			if ( pods_v_sanitized( 'feature_set' ) ) {
+				add_action( 'pods_api_post_save_pod_item', function( $p, $n, $id ) {
+					\hsync\set_featured::add_image( pods_v_sanitized( 'feature_set' ), $id );
+
+				}, 10, 3 );
+			}
+
 		} else {
 			pods_error( __FILE__ );
 		}

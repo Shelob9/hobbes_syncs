@@ -123,6 +123,7 @@ class remote_post {
 	 */
 	protected function get_post_json() {
 		$id = $this->post_id;
+
 		$post_type = get_post_type( $id );
 		$this->post_type = $post_type;
 		$pods = pods( $post_type, $id, true );
@@ -152,6 +153,14 @@ class remote_post {
 			}
 
 			unset( $data[ 'id' ] );
+
+			$featured = get_post_thumbnail_id( $id );
+			$featured = get_attached_file( $featured );
+
+			//add featured to the URL
+			if ( filter_var( $featured, FILTER_VALIDATE_URL ) ) {
+				$url = add_query_arg( 'feature_set', urlencode( $featured ), $url );
+			}
 		
 			$r = jp_keyed_request_make( $url, json_encode( $data  ) );
 
