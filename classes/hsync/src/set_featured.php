@@ -27,7 +27,11 @@ class set_featured {
 	 */
 	public static function add_image( $img_url, $post_id, $img_desc = '' ) {
 		if ( filter_var( $img_url, FILTER_VALIDATE_URL ) && is_object( get_post( $post_id ) ) ) {
-			if ( ! self::is_same( $img_url, $post_id ) ) {
+			$current = get_post_thumbnail_id( $post_id );
+
+			$current = get_attached_file( $current );
+
+			if ( ! self::is_same( $img_url, $current ) ) {
 				$tmp = download_url( $img_url );
 
 				$file_array = array();
@@ -67,27 +71,23 @@ class set_featured {
 	 * Check if incoming image URL is the same file name as current post image.
 	 *
 	 * @param $img_url
-	 * @param $post_id
+	 * @param $current
 	 *
 	 * @return bool
 	 */
-	protected static function is_same( $img_url, $post_id ) {
-		$current = get_post_thumbnail_id( $post_id );
-		if ( 0 < intval( $current ) ) {
-			$current = get_attached_file( $current );
-			$current = self::last_segment( $current );
-			$new = self::last_segment( $img_url );
-			$new = self::strip_ext( $new );
-			$current = self::strip_ext( $current );
+	public static function is_same( $img_url, $current ) {
+		$current = self::last_segment( $current );
+		$new = self::last_segment( $img_url );
+		$new = self::strip_ext( $new );
+		$current = self::strip_ext( $current );
 
-			$strpos = strpos( $new, $current );
+		$strpos = strpos( $new, $current );
 
-			if ( 0 === $strpos || $strpos || $new === $current ) {
-				return true;
-			}
+		if ( 0 === $strpos || $strpos || $new === $current ) {
+			return true;
 
+		}
 
-		};
 	}
 
 	/**

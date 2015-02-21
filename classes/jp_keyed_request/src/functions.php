@@ -31,7 +31,31 @@ add_action( 'init', function() {
 					\hsync\set_featured::add_image( pods_v_sanitized( 'feature_set' ), $id );
 
 				}, 10, 3 );
+
 			}
+
+			//sync image fields
+			if ( pods_v_sanitized( 'requesting_url' ) && pods_v_sanitized( 'requesting_id' ) ) {
+				add_action( 'pods_api_post_save_pod_item', function ( $p, $n, $id ) {
+					$pod_name     = $p['name'];
+					$pods_to_sync = \Hobbes_Syncs_Options::get( 'post_type' );
+					if ( in_array( $pod_name, $pods_to_sync ) ) {
+						new hsync\image_sync(
+							pods( $pod_name, $id ),
+							pods_v_sanitized( 'requesting_url' ),
+							$pod_name,
+							pods_v_sanitized( 'requesting_id' ),
+							$id
+						);
+
+					}
+
+				}, 10, 3 );
+
+			}
+
+
+
 
 		} else {
 			pods_error( __FILE__ );

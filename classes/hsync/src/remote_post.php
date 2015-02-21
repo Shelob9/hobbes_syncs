@@ -159,7 +159,14 @@ class remote_post {
 
 			//add featured to the URL
 			if ( filter_var( $featured, FILTER_VALIDATE_URL ) ) {
-				$url = add_query_arg( 'feature_set', urlencode( $featured ), $url );
+				$args = array(
+					'feature_set' => urlencode( $featured ),
+					'requesting_url' => urlencode( json_url() ),
+					'requesting_id' => $id,
+				);
+
+				$url = add_query_arg( $args, $url );
+
 			}
 		
 			$r = jp_keyed_request_make( $url, json_encode( $data  ) );
