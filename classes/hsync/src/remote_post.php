@@ -154,20 +154,19 @@ class remote_post {
 
 			unset( $data[ 'id' ] );
 
+			$args = array(
+				'requesting_url' => urlencode( json_url() ),
+				'requesting_id' => $id,
+			);
+
 			$featured = get_post_thumbnail_id( $id );
 			$featured = get_attached_file( $featured );
 
-			//add featured to the URL
 			if ( filter_var( $featured, FILTER_VALIDATE_URL ) ) {
-				$args = array(
-					'feature_set' => urlencode( $featured ),
-					'requesting_url' => urlencode( json_url() ),
-					'requesting_id' => $id,
-				);
-
-				$url = add_query_arg( $args, $url );
-
+				$args ['feature_set'] =  urlencode( $featured );
 			}
+
+			$url = add_query_arg( $args, $url );
 		
 			$r = jp_keyed_request_make( $url, json_encode( $data  ) );
 
