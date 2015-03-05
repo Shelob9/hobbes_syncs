@@ -100,7 +100,7 @@ function hsync_generate_keys_ajax_cb() {
  *
  * @since 0.0.1
  */
-add_action( 'plugins_loaded', 'hsyncs_check_dependencies', 1 );
+add_action( 'admin_init', 'hsyncs_check_dependencies', 1 );
 function hsyncs_check_dependencies() {
 	$version = false;
 	if ( version_compare(PHP_VERSION, '5.3.0') >= 0 ) {
