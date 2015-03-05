@@ -71,7 +71,7 @@ add_action( 'init', function() {
  * @since 0.0.1
  *
  * @param string $url Url to make request
- * @param array|object|JSON $data Body of request
+ * @param array|object $data Body of request. Must be an object or array. If is already JSON encoded failure will occur.
  * @param string $method HTTP method
  *
  * @return array|WP_Error

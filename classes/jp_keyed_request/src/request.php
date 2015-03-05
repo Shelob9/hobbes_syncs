@@ -71,6 +71,7 @@ class request {
 		$body = $this->data;
 		$args = array(  'body' => $body, 'timeout' => 60 );
 		$r = wp_remote_post( $this->url, $args, $this->method );
+
 		return $r;
 
 	}
@@ -95,7 +96,7 @@ class request {
 	/**
 	 * Prepare/encode body of request
 	 *
-	 * @param string|object|array $data Body of request
+	 * @param object|array $data Body of request
 	 *
 	 * @return bool|string
 	 */
@@ -104,7 +105,7 @@ class request {
 			$data = wp_json_encode( $data );
 		}
 
-		if ( is_string( $data ) ) {
+		if ( is_object( json_decode( $data ) ) ) {
 			return $data;
 		}
 

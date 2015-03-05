@@ -168,7 +168,7 @@ class remote_post {
 
 			$url = add_query_arg( $args, $url );
 		
-			$r = jp_keyed_request_make( $url, json_encode( $data  ) );
+			$r = jp_keyed_request_make( $url, $data );
 
 		}
 
