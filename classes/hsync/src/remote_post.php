@@ -232,7 +232,12 @@ class remote_post {
 	 */
 	public function prepare_data( $data ) {
 		$img_fields = apply_filters( 'hsyncs_image_fields', array( 'img' ), $this->post_type, $data );
+
+		unset( $data[ 'guid' ] );
+
 		foreach( $data as $key => $val ) {
+
+
 			if ( in_array( $key, $img_fields ) ) {
 				$img = pods_v( 'ID', $val );
 				$img = wp_get_attachment_image_src( $img );
@@ -249,10 +254,15 @@ class remote_post {
 
 			if ( is_array( $val ) ) {
 				if ( ! empty( $val ) ) {
+					if ( array_key_exists( 'guid', $val ) ) {
+						unset( $val[ 'guid' ] );
+					}
+
 					foreach ( $val as $i => $v ) {
 						if ( ! $v ) {
 							$val[ $i ] = "0";
 						}
+
 
 					}
 				}else{
