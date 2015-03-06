@@ -107,6 +107,7 @@ class request {
 
 		if ( is_object( json_decode( $data ) ) ) {
 			return $data;
+
 		}
 
 	}

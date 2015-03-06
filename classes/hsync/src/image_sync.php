@@ -34,7 +34,7 @@ class image_sync {
 	 * @param int $local_id ID of local id.
 	 */
 	function __construct( $pods, $remote_url, $post_type, $remote_id, $local_id ) {
-
+		$this->post_type = $post_type;
 		$this->pods = $pods;
 
 		$image_fields = $this->find_image_fields();
@@ -88,17 +88,9 @@ class image_sync {
 	 * @return array
 	 */
 	protected function find_image_fields( ) {
-		$fields = $this->pods->fields();
-		$image_fields = array();
-		foreach ( $fields as $field ) {
-			if ( 'file' == $field['type'] ) {
-				$image_fields[] = $field['name'];
-			}
+		$img_fields = apply_filters( 'hsyncs_image_fields', array( 'img' ), $this->post_type );
 
-		}
-
-		return apply_filters( 'hobbes_syncs_hsync_image_fields', $image_fields );
-
+		return $img_fields;
 	}
 
 

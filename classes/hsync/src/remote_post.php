@@ -230,22 +230,23 @@ class remote_post {
 	 *
 	 * @return object|\stdClass
 	 */
-	public function prepare_data( $array ) {
-		$obj = new \stdClass();
-		foreach ( $array as $key => $val ) {
-			if ( ! $val ) {
-				$val = "0";
-			}
+	public function prepare_data( $data ) {
+		$img_fields = apply_filters( 'hsyncs_image_fields', array( 'img' ), $this->post_type, $data );
+		foreach( $data as $key => $val ) {
+			if ( in_array( $key, $img_fields ) ) {
+				$val = pods_v( 'ID', $val );
+				$val = wp_get_attachment_image_src( $val );
+				if ( is_array( $val ) && isset( $val[0] ) ) {
+					$data[ $key ] = $val[0];
+				}else{
+					unset( $data[ $key ] );
+				}
 
-			if ( is_array( $val ) ) {
-				$obj->$key = $this->prepare_data( $val );
-			} else {
-				$obj->$key = $val;
 			}
 
 		}
 
-		return $obj;
+		return $data;
 
 	}
 
