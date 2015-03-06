@@ -222,13 +222,13 @@ class remote_post {
 	}
 
 	/**
-	 * Cast array to object, and all keys of array that are arrays to objects.
+	 * Prepare data for transmission.
 	 *
 	 * @since 0.0.2
 	 *
-	 * @param array $array An array
+	 * @param array $data The data
 	 *
-	 * @return object|\stdClass
+	 * @return array
 	 */
 	public function prepare_data( $data ) {
 		$img_fields = apply_filters( 'hsyncs_image_fields', array( 'img' ), $this->post_type, $data );
@@ -241,6 +241,18 @@ class remote_post {
 				}else{
 					unset( $data[ $key ] );
 				}
+
+			}
+
+			if ( is_array( $val ) ) {
+				foreach( $val as $i => $v ) {
+					if ( ! $v ) {
+						$val[ $i ] = "0";
+					}
+
+				}
+
+				$data[ $key ] = $val;
 
 			}
 
