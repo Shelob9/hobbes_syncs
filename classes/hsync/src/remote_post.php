@@ -128,7 +128,9 @@ class remote_post {
 		$this->post_type = $post_type;
 		$pods = pods( $post_type, $id, true );
 		if ( is_object( $pods ) ) {
-			return $pods->export();
+			$data = $pods->export();
+			$data = $this->recursive_cast( $data );
+			return $data;
 		}
 
 	}
@@ -216,6 +218,30 @@ class remote_post {
 		}
 
 		return $sites;
+
+	}
+
+	/**
+	 * Cast array to object, and all keys of array that are arrays to objects.
+	 *
+	 * @since 0.0.2
+	 *
+	 * @param array $array An array
+	 *
+	 * @return object|\stdClass
+	 */
+	public function recursive_cast( $array ) {
+		$obj = new \stdClass();
+		foreach ( $array as $key => $val ) {
+			if ( is_array( $val ) ){
+				$obj->$key = $this->recursive_cast( $val );
+			}else{
+				$obj->$key = $val;
+			}
+
+		}
+
+		return $obj;
 
 	}
 
