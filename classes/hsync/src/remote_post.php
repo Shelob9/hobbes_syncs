@@ -154,7 +154,7 @@ class remote_post {
 				$url = $url.'/'.$id;
 			}
 
-			unset( $data[ 'id' ] );
+			unset( $data->id );
 
 			$args = array(
 				'requesting_url' => urlencode( json_url() ),
