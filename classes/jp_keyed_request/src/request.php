@@ -102,7 +102,7 @@ class request {
 	 */
 	protected function prepare_body( $data ) {
 		if ( is_array( $data ) || is_object( $data ) ) {
-			$data = wp_json_encode( $data );
+			$data = json_encode( $data );
 		}
 
 		if ( is_object( json_decode( $data ) ) ) {
