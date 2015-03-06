@@ -243,6 +243,8 @@ class remote_post {
 					$val = null;
 				}
 
+				continue;
+
 			}
 
 			if ( is_array( $val ) ) {
