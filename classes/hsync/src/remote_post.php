@@ -129,7 +129,7 @@ class remote_post {
 		$pods = pods( $post_type, $id, true );
 		if ( is_object( $pods ) ) {
 			$data = $pods->export();
-			$data = $this->recursive_cast( $data );
+			$data = $this->prepare_data( $data );
 			return $data;
 		}
 
@@ -230,12 +230,16 @@ class remote_post {
 	 *
 	 * @return object|\stdClass
 	 */
-	public function recursive_cast( $array ) {
+	public function prepare_data( $array ) {
 		$obj = new \stdClass();
 		foreach ( $array as $key => $val ) {
-			if ( is_array( $val ) ){
-				$obj->$key = $this->recursive_cast( $val );
-			}else{
+			if ( ! $val ) {
+				$val = "0";
+			}
+
+			if ( is_array( $val ) ) {
+				$obj->$key = $this->prepare_data( $val );
+			} else {
 				$obj->$key = $val;
 			}
 
